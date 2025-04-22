@@ -14,6 +14,8 @@ namespace Exercise02 {
         public static double FromMeter(double meter) {
             return meter * retio;
         }
-
+        public static double FromInch(double inch) {
+            return inch / retio;
+        }
     }
 }
