@@ -10,7 +10,7 @@ namespace Exercise02 {
         //定数
         private const double retio = 0.0254;
 
-
+        //計算
         public static double FromMeter(double meter) {
             return meter * retio;
         }
