@@ -11,16 +11,19 @@
 
             int start = int.Parse(Console.ReadLine());
             if (start == 1) {
-                PrintYardToMeterList(5);
+                Console.Write("変換前（ヤード）:");
+                int i = int.Parse(Console.ReadLine());
+                PrintYardToMeterList(i);
             } else if (start == 2) {
-                PrintMeterToYardList(5);
+                Console.Write("変換前（メートル）:");
+                int i = int.Parse(Console.ReadLine());
+                PrintMeterToYardList(i);
             } else {
                 Console.WriteLine("１か２をにゅうりょくして");
             }
 
             //ヤードからメートルの出力
             static void PrintYardToMeterList(int i) {
-                Console.WriteLine("変換前（ヤード）:" + i);
                 double meter = InchConverter.FromMeter(i);
                 Console.WriteLine("変換後（メートル）:" + $"{meter: 0.000}");
 
@@ -28,7 +31,6 @@
         }
         //メートルからヤードの出力
         static void PrintMeterToYardList(int i) {
-            Console.WriteLine("変換前（メートル）:" + i);
             double yard = InchConverter.FromYard(i);
             Console.WriteLine("変換後（ヤード）:" + $"{yard: 0.000}");
 
