@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Exercise01 {
     public class Song {
         //2.1.1
-        string Title { get; set; } = string.Empty;
-        string ArtistName { get; set; } = string.Empty;
-        int Length { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string ArtistName { get; set; } = string.Empty;
+        public int Length { get; set; }
 
         //2.1.2
         public Song(string Title, string ArtistName, int Length) {
