@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 namespace Exercise01 {
     public class Song {
         //2.1.1
-        string Title;
-        string AristName;
-        int Length;
+        string Title { get; set; } = string.Empty;
+        string ArtistName { get; set; } = string.Empty;
+        int Length { get; set; }
+
+        //2.1.2
+        public Song(string Title, string ArtistName, int Length) {
+            this.Title = Title;
+            this.ArtistName = ArtistName;
+            this.Length = Length;
+
+        }
     }
-}
+}       
