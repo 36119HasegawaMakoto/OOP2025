@@ -29,7 +29,7 @@ namespace Exercise01 {
 
 
         //2.1.4
-        private static void printSongs(List<Song> sing) {
+        private static void printSongs(IEnumerable<Song> sing) {
             foreach (Song song in sing) {
                 TimeSpan time = TimeSpan.FromSeconds(song.Length);
                 Console.WriteLine(song.Title + " : " + song.ArtistName + " : " + time.ToString(@"mm\:ss"));
