@@ -3,24 +3,38 @@
 namespace Exercise01 {
     public class Program {
         static void Main(string[] args) {
+            //データ入れるリストを生成
+            var sing = new List<Song>();
+            Console.WriteLine("***  曲の登録　***");
+            while (true) {
+                Console.Write("曲名:");
+                string? title = Console.ReadLine();
+                if (title.Equals("end", StringComparison.OrdinalIgnoreCase))
+                    break;
 
-            //2.1.3
-            var songs = new Song[] {
-                new Song("Let it be", "The Beatles", 243),
-                new Song("Bridge Over Troubled Water", "Simon & Garfunkel", 293),
-                new Song("Close To You", "Carpenters", 276),
-                new Song("Honesty", "Billy Joel", 231),
-                new Song("I Will Always Love You", "Whitney Houston", 273),
-            };
-            printSongs(songs);
+                Console.Write("アーティスト名");
+                string? artistName = Console.ReadLine();
+                Console.Write("演奏時間（秒）");
+                int length = int.Parse(Console.ReadLine());
+                var song = new Song() {
+                    Title = title,
+                    ArtistName = artistName,
+                    Length = length
+                };
+                sing.Add(song);
+                
+            }
+            printSongs(sing);
         }
+
+
         //2.1.4
-        private static void printSongs(Song[] songs) {
-            foreach(Song song in songs) {
-                TimeSpan time =  TimeSpan.FromSeconds(song.Length);
+        private static void printSongs(List<Song> sing) {
+            foreach (Song song in sing) {
+                TimeSpan time = TimeSpan.FromSeconds(song.Length);
                 Console.WriteLine(song.Title + " : " + song.ArtistName + " : " + time.ToString(@"mm\:ss"));
             }
-           
+
         }
     }
 }
