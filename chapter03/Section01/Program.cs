@@ -2,23 +2,36 @@
     internal class Program {
 
         static void Main(string[] args) {
-            //Console.Write("カウントしたい数値:");
-           // int count = int.Parse(Console.ReadLine());
+            var cities = new List<string> {
+               "Tokyo",
+               "New Delhi",
+               "Bangkok",
+               "London",
+               "Paris",
+               "Berlin",
+               "Canberra",
+               "Hong Kong",
+           };
+            var exists = cities.Exists(s => s[0] == 'P');
+            Console.WriteLine(exists);
 
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
+            var find = cities.Find(s => s.Length == 6);
+            Console.WriteLine(find);
 
-            Console.WriteLine(Count( numbers, delegate(int n) { return n % 2 == 0; }) );
-            
-        }
-        static int Count(int[] numbers,Predicate<int> judge) {
-            var count = 0;
-            foreach (var n in numbers) {
-                //引数で受け取ったメソッドを呼び出す
-                if (judge(n) == true) {
-                    count++;
-                }
+            var findin = cities.FindIndex(s => s == "London");
+            Console.WriteLine(findin);
+
+            var findall = cities.FindAll(s => s.Length <= 5);
+            foreach (var s in findall) {
+                Console.WriteLine(s);
             }
-            return count;
+            cities.ForEach(s => Console.WriteLine("都市名: " + s));
+
+            var lowerList = cities.ConvertAll(s => s.ToLower());
+            lowerList.ForEach(s => Console.WriteLine(s));
+
+            var upperList = cities.ConvertAll(s => s.ToUpper());
+            upperList.ForEach(s => Console.WriteLine(s));
         }
     }
 }
