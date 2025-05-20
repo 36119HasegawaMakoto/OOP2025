@@ -32,17 +32,16 @@ namespace Exercise02 {
                 if (string.IsNullOrEmpty(name)) {
                     break;
                 }
-                int index = names.FindIndex(s => s == name);
-                Console.WriteLine(index);
+                Console.WriteLine(names.FindIndex(s => s == name));
             }
         }
 
         private static void Exercise2_2(List<string> names) {
-
+            Console.WriteLine(names.Count(s => s.Contains('o')));
         }
 
         private static void Exercise2_3(List<string> names) {
-
+            
         }
 
         private static void Exercise2_4(List<string> names) {
