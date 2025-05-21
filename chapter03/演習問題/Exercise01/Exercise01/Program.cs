@@ -33,11 +33,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(List<int> numbers) {
-            numbers.Where(s => s >= 50).ToList().ForEach(num => Console.WriteLine(num));            
+            numbers.Where(s => s >= 50).ToList().ForEach(Console.WriteLine);            
         }
 
         private static void Exercise4(List<int> numbers) {
-            numbers.Select(s => s * 2).ToList().ForEach(num => Console.WriteLine(num));
+            numbers.Select(s => s * 2).ToList().ForEach(Console.WriteLine);
             
         }
     }
