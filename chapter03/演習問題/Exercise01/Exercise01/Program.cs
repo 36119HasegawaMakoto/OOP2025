@@ -33,17 +33,12 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(List<int> numbers) {
-            var select = numbers.Where(s => s >= 50);
-            foreach(var num in select) {
-                Console.WriteLine(num);
-            }
+            numbers.Where(s => s >= 50).ToList().ForEach(num => Console.WriteLine(num));            
         }
 
         private static void Exercise4(List<int> numbers) {
-            var count = numbers.Select(s => s * 2).ToList();
-            foreach(var bai in count) {
-                Console.WriteLine(bai);
-            }
+            numbers.Select(s => s * 2).ToList().ForEach(num => Console.WriteLine(num));
+            
         }
     }
 }
