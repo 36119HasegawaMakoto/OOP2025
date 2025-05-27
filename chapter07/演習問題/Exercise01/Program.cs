@@ -29,9 +29,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(int[] numbers) {
-            foreach (var num in numbers) {
-                Console.WriteLine(num.ToString("D3")); 
-            }
+            numbers.Select(n => n.ToString("000")).ToList().ForEach(n => Console.WriteLine(n));
+            //foreach (var num in numbers) {
+            //    Console.WriteLine(num.ToString("D3")); 
+            //}
         }
 
         private static void Exercise4(int[] numbers) {
