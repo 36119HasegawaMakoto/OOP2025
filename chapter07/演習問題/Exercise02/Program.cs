@@ -50,19 +50,26 @@ namespace Exercise02 {
         }
 
         private static void Exercise4(List<Book> books) {
-
+            var title = books.FirstOrDefault(s => s.Price >= 4000);
+            Console.WriteLine(title?.Title);
         }
 
         private static void Exercise5(List<Book> books) {
-
+            Console.WriteLine(books.Max(s => s.Pages));            
         }
 
         private static void Exercise6(List<Book> books) {
-
+             var book = books.Where(n => n.Pages >= 400).OrderByDescending(n => n.Price);
+             foreach(var item in book) {
+                Console.WriteLine("タイトル:" + item.Title + " 価格:" + item.Price);
+            }            
         }
 
         private static void Exercise7(List<Book> books) {
-
+            var book = books.Where(n => n.Title.Contains("C#") && n.Pages <= 500);
+            foreach (var item in book) {
+                Console.WriteLine(item.Title);
+            }
         }
     }
 }
