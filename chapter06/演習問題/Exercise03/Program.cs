@@ -22,7 +22,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise1(string text) {
-            Console.WriteLine("空白数:" + text.Count(char.IsWhiteSpace));            
+            Console.WriteLine("空白数:" + text.Count(char.IsWhiteSpace));
+            //Console.WriteLine("空白数:" + text.Count(c => c == ' '));
         }
 
         private static void Exercise2(string text) {
@@ -36,6 +37,7 @@ namespace Exercise03 {
         private static void Exercise4(string text) {
             string[] word = text.Split(" ");
             Console.WriteLine("単語数:" + word.Length);
+            //Console.WriteLine("単語数:" + text.Split(' ').Length);
         }
 
         private static void Exercise5(string text) {
@@ -44,7 +46,7 @@ namespace Exercise03 {
                 if (word[i].Length <= 4) {
                     Console.WriteLine(word[i]);
                 }
-            }
+            }            
         }
     }
 }
