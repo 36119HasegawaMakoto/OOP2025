@@ -26,11 +26,29 @@ namespace Exercise03 {
         }
 
         private static void Exercise6(string text) {
-           var alfa = text.ToLower();
+            var alfa = text.ToLower();
             for (char ch = 'a'; ch <= 'z'; ch++) {
-                Console.WriteLine(ch +  ":" + alfa.Count(s => s == ch));               
-                
+                Console.WriteLine(ch + ":" + alfa.Count(s => s == ch));
             }
+            ////先生のディクショナリー
+            //var alphDiccount = Enumerable.Range('a', 26)
+            //                             .ToDictionary(num => ((char)num).ToString(), num => 0);
+            //foreach (var alph in alfa) {
+            //    alphDiccount[alph.ToString()]++;
+            //}
+            //foreach (var item in alphDiccount) {
+            //    Console.WriteLine($"{item.Key}:{item.Value}");
+            //}
+            //もういっこ配列
+            //var array = Enumerable.Range(0, 26).ToArray();
+            //foreach (var alph in alfa) {
+            //    array[alph - 'a']++;
+            //}
+            //for (char ch = 'a'; ch <= 'z'; ch++) {
+            //    Console.WriteLine($"{ch}:{array[ch - 'a']}");
+            //}
+
+
         }
 
         private static void Exercise1(string text) {
