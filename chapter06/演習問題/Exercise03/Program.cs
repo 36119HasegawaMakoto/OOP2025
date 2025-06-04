@@ -21,6 +21,16 @@ namespace Exercise03 {
             Console.WriteLine("6.3.5");
             Exercise5(text);
 
+            Console.WriteLine("6.3.99");
+            Exercise6(text);
+        }
+
+        private static void Exercise6(string text) {
+           var alfa = text.ToLower();
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                Console.WriteLine(ch +  ":" + alfa.Count(s => s == ch));               
+                
+            }
         }
 
         private static void Exercise1(string text) {
