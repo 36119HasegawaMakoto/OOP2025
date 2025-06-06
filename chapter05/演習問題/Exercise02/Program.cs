@@ -28,9 +28,11 @@ namespace Exercise02 {
                 Console.WriteLine(item);
             }
         }
+        //5.2.3
+
 
         private static void Exercise4(YearMonth[] ymCollection) {
-
+            
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
