@@ -20,7 +20,15 @@ namespace Exercise01 {
 
         //5.1.3
         public YearMonth AddOneMonth() {
-
+            int nextYear = Year;
+            int nextMonth = Month;
+            if(Month < 12) {
+                nextMonth++;                
+            } else {
+                nextYear++;
+                nextMonth = 1;
+            }
+            return new YearMonth(nextYear, nextMonth);
         }
 
 
