@@ -49,7 +49,7 @@ namespace Exercise02 {
             //null合体演算子,null条件演算子
 
             var yearMonth = FindFirst21C(ymCollection);
-            var str = yearMonth.ToString() ?? "21世紀のデータはありません";
+            var str = yearMonth?.ToString() ?? "21世紀のデータはありません";
             Console.WriteLine(str);
 
             Console.WriteLine(FindFirst21C(ymCollection)?.ToString() ?? "21世紀のデータはありません");
