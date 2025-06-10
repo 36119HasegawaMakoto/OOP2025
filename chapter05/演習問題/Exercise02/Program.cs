@@ -50,7 +50,11 @@ namespace Exercise02 {
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
-
+            var array = ymCollection.Select(i => i.AddOneMonth());
+            foreach (var item in array) {
+                Console.WriteLine(item);
+            }
+            
         }
     }
 }
