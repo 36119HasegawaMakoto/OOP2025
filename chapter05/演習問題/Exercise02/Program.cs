@@ -2,7 +2,7 @@
 
 namespace Exercise02 {
     internal class Program {
-        static void Main(string[] args) {
+        static void Main(string[] args) {            
             // 5.2.1
             var ymCollection = new YearMonth[] {
                 new YearMonth(1980, 1),
@@ -14,14 +14,13 @@ namespace Exercise02 {
 
             Console.WriteLine("5.2.2");
             Exercise2(ymCollection);
-
+                        
             Console.WriteLine("5.2.4");
             Exercise4(ymCollection);
 
-
             Console.WriteLine("5.2.5");
             Exercise5(ymCollection);
-        }
+                    }
 
         private static void Exercise2(YearMonth[] ymCollection) {
             foreach (var item in ymCollection) {
@@ -29,10 +28,25 @@ namespace Exercise02 {
             }
         }
         //5.2.3
-
+        
+        public static YearMonth? FindFirst21C(YearMonth[] ymCollection) {            
+            foreach (var item in ymCollection) {
+                if(item.Is21Century) {
+                    return item;                    
+                }                
+            }
+            return null;
+        }
 
         private static void Exercise4(YearMonth[] ymCollection) {
-            
+           var change = FindFirst21C(ymCollection);
+            if (change == null) {
+                Console.WriteLine("21世紀のデータはありません");
+            } else {
+                Console.WriteLine(change.Year);
+            }
+
+
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
