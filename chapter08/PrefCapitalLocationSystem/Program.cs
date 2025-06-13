@@ -2,6 +2,13 @@
     internal class Program {
         static private Dictionary<string, string> prefOfficeDict = new Dictionary<string, string>();
 
+        //列挙型の定義
+        public enum SelectMenu {
+            Alldisp = 1,
+            Search = 2,
+            Exit = 9
+        }
+
         static void Main(string[] args) {
             String? pref, prefCaptalLocation;
 
@@ -36,31 +43,45 @@
             Boolean endFlag = false;    //終了フラグ（無限ループを抜け出す用）
             while (!endFlag) {
                 switch (menuDisp()) {
-                    case "1":                        //一覧出力処理
+                    case SelectMenu.Alldisp:
                         allDisp();
                         break;
-
-
-                    case "2"://検索処理
+                    case SelectMenu.Search:
                         searchPrefCaptalLocation();
                         break;
-
-
-                    case "9"://無限ループを抜ける
+                    case SelectMenu.Exit:
                         endFlag = true;
                         break;
                 }
+
+
+                //switch (menuDisp()) {
+                //    case "1":                        //一覧出力処理
+                //        allDisp();
+                //        break;
+
+
+                //    case "2"://検索処理
+                //        searchPrefCaptalLocation();
+                //        break;
+
+
+                //    case "9"://無限ループを抜ける
+                //        endFlag = true;
+                //        break;
+                //}
             }
         }
 
         //メニュー表示
-        private static string? menuDisp() {
+        private static SelectMenu menuDisp() {
             Console.WriteLine("\n**** メニュー ****");
             Console.WriteLine("1：一覧表示");
             Console.WriteLine("2：検索");
             Console.WriteLine("9：終了");
             Console.Write(">");
-            var menuSelect = Console.ReadLine();
+
+            var menuSelect =  (SelectMenu)int.Parse(Console.ReadLine());
             return menuSelect;
         }
 
