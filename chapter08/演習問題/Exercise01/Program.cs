@@ -34,7 +34,7 @@ namespace Exercise01 {
                     if (dict.ContainsKey(take)) {
                         dict[take]++;
                     } else {
-                        dict.Add(take, 1);
+                        dict[take] = 1;
                     }
                 }
             }
