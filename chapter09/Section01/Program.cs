@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
 using System.Runtime.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Section01 {
     internal class Program {
         static void Main(string[] args) {
-            var today = new DateTime(2025,7,12);//日付
+            var today =  DateTime.Today;//日付
             var now = DateTime.Now;//日付と時刻
 
             Console.WriteLine($"Today:{today}");
@@ -23,11 +24,25 @@ namespace Section01 {
             //なんか
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
+            //西暦から和暦に
             var str = tan.ToString("ggyy年M月d日", culture);
             Console.WriteLine($"{str}年{month}月{day}日{culture.DateTimeFormat.GetDayName(tan.DayOfWeek)}");
             //var tan = new DateTime(2006, 1, 25);
             //DayOfWeek weak = tan.DayOfWeek;
             //Console.WriteLine(weak);
+
+            //生まれてから何日目？
+            TimeSpan diff = today.Date - tan.Date;
+            Console.WriteLine($"生まれてから{diff.Days}日たってる");
+
+            //あなたは19歳です
+            var tosi = diff / 365;
+            Console.WriteLine($"お前は{tosi.Days}歳");
+
+            //1月1日から何日目
+            var dayOfYear = today.DayOfYear;
+            Console.WriteLine($"1月1日から{dayOfYear}にち立ってる");
+
             //うるう年の判定
             Console.Write("西暦入力:");
             var nen = int.Parse(Console.ReadLine());
