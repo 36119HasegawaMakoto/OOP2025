@@ -11,7 +11,7 @@ namespace Exercise01 {
         }
 
         private static void DisplayDatePattern1(DateTime dateTime) {
-            Console.WriteLine(string.Format(dateTime.ToString())); 
+            Console.WriteLine(string.Format(dateTime.ToString($"{dateTime:yyyy/MM/dd HH:mm}"))); 
         }
 
         private static void DisplayDatePattern2(DateTime dateTime) {
