@@ -15,7 +15,7 @@ namespace Exercise01 {
         }
 
         private static void DisplayDatePattern2(DateTime dateTime) {
-            Console.WriteLine(dateTime.ToString("yyyy年M月d日　HH時mm分ss秒"));
+            Console.WriteLine(dateTime.ToString("yyyy年MM月dd日　HH時mm分ss秒"));
         }
 
         private static void DisplayDatePattern3(DateTime dateTime) {
