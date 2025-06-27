@@ -31,6 +31,11 @@ namespace Exercise02 {
             var days = (int)dayOfWeek - (int)(date.DayOfWeek);            
             days += 7;            
             return date.AddDays(days);
+
+            //せんせver
+            //var nextweek = date.AddDays(7);
+            //var days = (int)dayOfWeek - (int)(date.DayOfWeek);
+            //return nextweek.AddDays(days);
         }
 
         private static void Exercise2() {
