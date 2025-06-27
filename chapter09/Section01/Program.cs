@@ -36,12 +36,11 @@ namespace Section01 {
             Console.WriteLine($"生まれてから{diff.Days}日たってる");
 
             //あなたは19歳です
-            var tosi = diff / 365;
-            Console.WriteLine($"お前は{tosi.Days}歳");
+            int age = GetAge(tan, DateTime.Today);
+            Console.WriteLine($"お前は{age}歳");
 
             //1月1日から何日目
-            var dayOfYear = today.DayOfYear;
-            Console.WriteLine($"1月1日から{dayOfYear}にち立ってる");
+            Console.WriteLine($"1月1日から{today.DayOfYear}にち立ってる");
 
             //うるう年の判定
             Console.Write("西暦入力:");
@@ -51,6 +50,13 @@ namespace Section01 {
                 Console.WriteLine($"{nen}年はうるう年です");
             } else {
                 Console.WriteLine($"{nen}年は平年です");
+            }
+            static int GetAge(DateTime birtday, DateTime targetDay) {
+                var age = targetDay.Year - birtday.Year;
+                if(targetDay < birtday.AddYears(age)) {
+                    age--;
+                }
+                return age;
             }
         }
     }
