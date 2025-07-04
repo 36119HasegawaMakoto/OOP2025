@@ -55,9 +55,9 @@ namespace CarReportSystem {
 
         //車名の履歴をコンボボックスへ登録（重複なし）
         private void setcbCarName(string carName) {
-            if (!cbAuthor.Items.Contains(carName)) {
+            if (!cbCarName.Items.Contains(carName)) {
                 //未登録なら登録　とうろくずみならなにもしない
-                cbAuthor.Items.Add(carName);
+                cbCarName.Items.Add(carName);
             }
         }
 
