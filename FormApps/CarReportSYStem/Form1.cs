@@ -21,11 +21,12 @@ namespace CarReportSystem {
         }
         //’Ç‰Á
         private void btRecordAdd_Click(object sender, EventArgs e) {
+            tsslbMessage.Text = string.Empty;
             if (cbAuthor.Text == string.Empty || cbCarName.Text == string.Empty) {
                 tsslbMessage.Text = "‹L˜^ŽÒ‚Ü‚½‚ÍŽÔ–¼‚ª–¢“ü—Í‚Å‚·";
-            } else {
-                tsslbMessage.Text = "";
+                return;              
             }
+
             var carReport = new CarReport {
                 Date = dtpDate.Value.Date,
                 Author = cbAuthor.Text,
