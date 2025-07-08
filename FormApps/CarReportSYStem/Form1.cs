@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
@@ -24,7 +26,7 @@ namespace CarReportSystem {
             tsslbMessage.Text = string.Empty;
             if (cbAuthor.Text == string.Empty || cbCarName.Text == string.Empty) {
                 tsslbMessage.Text = "記録者または車名が未入力です";
-                return;              
+                return;
             }
 
             var carReport = new CarReport {
@@ -68,6 +70,7 @@ namespace CarReportSystem {
             }
         }
 
+        //メーカー受け取るメゾット
         private CarReport.MakerGroup getRadioBottonMaker() {
             if (rbNissan.Checked) {
                 return CarReport.MakerGroup.日産;
@@ -147,13 +150,84 @@ namespace CarReportSystem {
                 //選択されているインデックスを取得
                 var index = dgvRecord.CurrentRow.Index;
                 listCarReports.RemoveAt(index);
-
-
-
             }
         }
+        //フォームロード
         private void Form1_Load(object sender, EventArgs e) {
             inputItemsAllClear();
+            //交互に色を設定（データグリッドビュー）
+            dgvRecord.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.LawnGreen;
+
+        }
+        //終了
+        private void esmiExit_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+        //このアプリについて
+        private void tsmiAbout_Click(object sender, EventArgs e) {
+            fmVersion fmv = new fmVersion();
+            fmv.ShowDialog();
+        }
+        //色変更
+        private void esmiCollor_Click(object sender, EventArgs e) {
+            if (cdCollar.ShowDialog() == DialogResult.OK) {
+                this.BackColor = cdCollar.Color;
+            }
+        }
+        //ファイルオープン処理
+        private void reportOpenFire() {
+            if(ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
+                try {
+                    //逆シリアル化でバイナリ形式を取り込む
+#pragma warning disable SYSLIB0011 // 型またはメンバーが旧型式です
+                    var bf = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // 型またはメンバーが旧型式です
+                    using(FileStream fs = File.Open(
+                           ofdReportFileOpen.FileName, FileMode.Open, FileAccess.Read)) {
+                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvRecord.DataSource = listCarReports;
+
+                        cbAuthor.Items.Clear();
+                        cbCarName.Items.Clear();
+                        //コンボボックスへ登録
+                        foreach (var report in listCarReports) {
+                            setCbAuthor(report.Author);
+                            setcbCarName(report.CarName);
+                        }
+                    }
+                }
+                catch (Exception) {
+                    tsslbMessage.Text = "ファイル形式が違います";              
+                }
+            }
+        }
+        //ファイルセーブ処理
+        private void reportSaveFile() {
+            if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリ形式でシリアル化
+#pragma warning disable SYSLIB0011
+                    var bf = new BinaryFormatter();
+#pragma warning restore SYSLIB0011
+                    using (FileStream fs = File.Open(
+                              sfdReportFileSave.FileName, FileMode.Create)) {
+                        bf.Serialize(fs, listCarReports);
+                    }
+                }
+                catch (Exception ex) {
+                    tsslbMessage.Text = "ファイル書き出しエラー";
+                    MessageBox.Show(ex.Message);//より具体手的なエラーを出力
+                }
+            }
+        }
+        //保存ボタン
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
+            reportSaveFile();
+        }
+        //開くボタン
+        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
+            reportOpenFire();
         }
     }
 }
