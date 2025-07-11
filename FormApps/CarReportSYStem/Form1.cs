@@ -166,12 +166,25 @@ namespace CarReportSystem {
             dgvRecord.RowsDefaultCellStyle.BackColor = Color.White;
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.LawnGreen;
             //設定ファイルを読み込み背景色を設定する（逆シリアル化）
-            var set = new XmlSerializer(typeof(Settings));             
-            using (var reader = new StreamReader("setting.xml")) {       
-                var data = set.Deserialize(reader) as Settings;
-                setting = data??new Settings();
-                this.BackColor = Color.FromArgb(setting.MainFormBackColor);
-            }
+            if (File.Exists("setting.xlm")) {
+                try {
+                    var set = new XmlSerializer(typeof(Settings));
+                    using (var reader = new StreamReader("setting.xml")) {
+                        var data = set.Deserialize(reader) as Settings;
+                        setting = data ?? new Settings();
+                        //背景色設定
+                        this.BackColor = Color.FromArgb(setting.MainFormBackColor);
+                        //設定クラスのインスタンスにも現在の設定色を設定
+                        //setting.MainFormBackColor = BackColor.ToArgb();                        
+                    }
+                }
+                catch (Exception ex) {
+                    tsslbMessage.Text = "設定ファイル読込エラー";
+                    MessageBox.Show(ex.Message);//わかりやすいエラー
+                }
+            } else {
+                tsslbMessage.Text = "設定ファイルがありません";
+            }              
         }
         //終了
         private void esmiExit_Click(object sender, EventArgs e) {
