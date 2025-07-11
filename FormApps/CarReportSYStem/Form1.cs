@@ -12,7 +12,7 @@ namespace CarReportSystem {
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
         //設定クラスのインスタンスを生成
-        Settings setting = new Settings();
+        Settings setting = Settings.GetInstance();
 
         public Form1() {
             InitializeComponent();
@@ -171,7 +171,7 @@ namespace CarReportSystem {
                     var set = new XmlSerializer(typeof(Settings));
                     using (var reader = new StreamReader("setting.xml")) {
                         var data = set.Deserialize(reader) as Settings;
-                        setting = data ?? new Settings();
+                        setting = data ?? setting;
                         //背景色設定
                         this.BackColor = Color.FromArgb(setting.MainFormBackColor);
                         //設定クラスのインスタンスにも現在の設定色を設定
