@@ -30,6 +30,11 @@ namespace Exercise01 {
                 },
             ];
             Serialize("employees.json", employees);
+
+            //問題12.1.3
+            var empdata = Deserialize_f("employees.json");
+            foreach (var empd in empdata)
+                Console.WriteLine(empd);
         }
         //問題12.1.1
         static string Serialize(Employee emp) {
@@ -60,7 +65,16 @@ namespace Exercise01 {
             string jsonString = JsonSerializer.Serialize(employees, options);
             File.WriteAllText(filePath, jsonString);
         }
+        //問題12.1.3
+        //シリアル化してファイルへ出力する
+        static Employee[] Deserialize_f(string filePath) {
+            var options = new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            string json = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<Employee[]>(json,options)??Array.Empty<Employee>();
 
+        }
 
     }
     public record Employee {
