@@ -19,7 +19,9 @@ namespace Exercise02 {
         static Novelist? Deserialize(string jsonString) {
             var options = new JsonSerializerOptions {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals |
+                                 JsonNumberHandling.AllowReadingFromString
             };
            return JsonSerializer.Deserialize<Novelist>(jsonString,options);
 
@@ -27,7 +29,7 @@ namespace Exercise02 {
     }
 
     public record Novelist {
-        public string Id { get; init; }
+        public int Id { get; init; }
         public string Name { get; init; } = string.Empty;
         [JsonPropertyName("birth")]
         public DateTime Birthday { get; init; }
