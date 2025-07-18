@@ -36,8 +36,7 @@ namespace RssReader {
 
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitels_Click(object sender, EventArgs e) {
-            int index = lbTitels.SelectedIndex;
-            string selectedItem = lbTitels.Items[index].ToString();
+            var index = lbTitels.SelectedIndex;            
             webView21.Source = new Uri(items[index].Link);
 
         }
