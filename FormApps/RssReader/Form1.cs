@@ -12,7 +12,7 @@ namespace RssReader {
         public Form1() {
             InitializeComponent();
         }
-
+        //取得ボタン
         private async void btRssGet_Click(object sender, EventArgs e) {
 
             using (var hc = new HttpClient()) {
@@ -36,8 +36,25 @@ namespace RssReader {
 
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitels_Click(object sender, EventArgs e) {
-            var index = lbTitels.SelectedIndex;            
-            webView21.Source = new Uri(items[index].Link);
+            mvRssLink.Source = new Uri(items[lbTitels.SelectedIndex].Link);
+        }
+        //戻る
+        private void btBack_Click(object sender, EventArgs e) {
+            mvRssLink.GoBack();
+        }
+        //進む
+        private void btForward_Click(object sender, EventArgs e) {
+            mvRssLink.GoForward();
+        }
+        //ブグマ登録
+        private void btBookmark_Click(object sender, EventArgs e) {
+            //登録済みか確認
+            if (!tbUrl.Items.Contains(tbBookMarkName.Text)) {
+                tbUrl.Items.Add(tbBookMarkName.Text);
+            } else {
+                MessageBox.Show("名前が重複しています");
+            }
+            
 
         }
     }
