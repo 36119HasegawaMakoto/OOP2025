@@ -16,17 +16,21 @@ namespace RssReader {
             using (var wc = new WebClient()) {
                 var url = wc.OpenRead(tbUrl.Text);
                 XDocument xdoc = XDocument.Load(url);//rssの取得
+
+
                 //RSSを解析して必要な要素を取得
-                items = xdoc.Root.Descendants("item").Select(x => new ItemDate 
-                                            { Title = (string)x.Element("title"), }).ToList();
+                items = xdoc.Root.Descendants("item").Select(x => new ItemDate {
+                    Title = (string)x.Element("title"),
+                    Url = (string)x.Element("url"),
+                }).ToList();
+
                 //リストボックスにタイトルを表示
                 lbTitels.Items.Clear();
-                foreach (var text in items) {
-                    lbTitels.Items.Add(text.Title);
+                items.ForEach(item => lbTitels.Items.Add(item.Title));
 
-                }
             }
-            
         }
+
     }
 }
+
