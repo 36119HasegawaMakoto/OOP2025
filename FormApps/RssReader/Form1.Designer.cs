@@ -32,13 +32,14 @@
             tbBookMarkName = new TextBox();
             btBookmark = new Button();
             label1 = new Label();
+            btHome = new Button();
             ((System.ComponentModel.ISupportInitialize)mvRssLink).BeginInit();
             SuspendLayout();
             // 
             // tbUrl
             // 
             tbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbUrl.Location = new Point(191, 14);
+            tbUrl.Location = new Point(217, 15);
             tbUrl.Name = "tbUrl";
             tbUrl.Size = new Size(490, 33);
             tbUrl.TabIndex = 0;
@@ -46,7 +47,7 @@
             // btRssGet
             // 
             btRssGet.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btRssGet.Location = new Point(687, 13);
+            btRssGet.Location = new Point(713, 15);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(75, 34);
             btRssGet.TabIndex = 1;
@@ -66,24 +67,25 @@
             lbTitels.TabIndex = 2;
             lbTitels.Click += lbTitels_Click;
             // 
-            // webView21
+            // mvRssLink
             // 
             mvRssLink.AllowExternalDrop = true;
             mvRssLink.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mvRssLink.CreationProperties = null;
             mvRssLink.DefaultBackgroundColor = Color.White;
             mvRssLink.Location = new Point(12, 292);
-            mvRssLink.Name = "webView21";
+            mvRssLink.Name = "mvRssLink";
             mvRssLink.Size = new Size(887, 393);
             mvRssLink.TabIndex = 3;
             mvRssLink.ZoomFactor = 1D;
+            mvRssLink.SourceChanged += mvRssLink_SourceChanged;
             // 
             // btForward
             // 
             btForward.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btForward.Location = new Point(93, 16);
+            btForward.Location = new Point(93, 14);
             btForward.Name = "btForward";
-            btForward.Size = new Size(78, 31);
+            btForward.Size = new Size(78, 29);
             btForward.TabIndex = 4;
             btForward.Text = "進む";
             btForward.UseVisualStyleBackColor = true;
@@ -92,9 +94,9 @@
             // btBack
             // 
             btBack.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btBack.Location = new Point(12, 16);
+            btBack.Location = new Point(12, 15);
             btBack.Name = "btBack";
-            btBack.Size = new Size(75, 29);
+            btBack.Size = new Size(75, 28);
             btBack.TabIndex = 5;
             btBack.Text = "戻る";
             btBack.UseVisualStyleBackColor = true;
@@ -128,11 +130,24 @@
             label1.TabIndex = 8;
             label1.Text = "お気に入りの名前を登録";
             // 
+            // btHome
+            // 
+            btHome.BackColor = SystemColors.Control;
+            btHome.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btHome.Location = new Point(177, 14);
+            btHome.Name = "btHome";
+            btHome.Size = new Size(34, 32);
+            btHome.TabIndex = 10;
+            btHome.Text = "⌂﻿";
+            btHome.UseVisualStyleBackColor = false;
+            btHome.Click += btHome_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(934, 743);
+            Controls.Add(btHome);
             Controls.Add(label1);
             Controls.Add(btBookmark);
             Controls.Add(tbBookMarkName);
@@ -144,6 +159,7 @@
             Controls.Add(tbUrl);
             Name = "Form1";
             Text = "RSSリーダー";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)mvRssLink).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -160,5 +176,6 @@
         private TextBox tbBookMarkName;
         private Button btBookmark;
         private Label label1;
+        private Button btHome;
     }
 }
