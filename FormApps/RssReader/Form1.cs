@@ -56,6 +56,9 @@ namespace RssReader {
         }
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitels_Click(object sender, EventArgs e) {
+            if(items is null || lbTitels.SelectedItems is null) {
+                return;
+            }
             mvRssLink.Source = new Uri(items[lbTitels.SelectedIndex].Link);
         }
 
@@ -69,7 +72,7 @@ namespace RssReader {
         }
         //ブグマ登録
         private void btBookmark_Click(object sender, EventArgs e) {
-            if(tbBookMarkName.Text == "") {
+            if (tbBookMarkName.Text == "") {
                 MessageBox.Show("名前入れてーーーーー");
                 return;
             }
@@ -100,6 +103,7 @@ namespace RssReader {
         //フォームロード
         private void Form1_Load(object sender, EventArgs e) {
             GoFowerdbtEnableSet();
+            lbTitels.DrawMode = DrawMode.OwnerDrawFixed;
         }
         //お気に入り削除
         private void btDelete_Click(object sender, EventArgs e) {
@@ -114,7 +118,33 @@ namespace RssReader {
             MessageBox.Show("名前が見つからないよ");
             tbBookMarkName.Clear();
         }
+        //色を交互に変えるやつ
+        private void lbTitels_DrawItem(object sender, DrawItemEventArgs e) {
+            if (e.Index < 0) return;
+            // 奇数行と偶数行で色を変える
+            Color bgColor = (e.Index % 2 == 0) ? Color.LightGray : Color.White;
+            // 背景を塗りつぶす
+            using (SolidBrush bgBrush = new SolidBrush(bgColor)) {
+                e.Graphics.FillRectangle(bgBrush, e.Bounds);
+            }
+            // テキストの色
+            Color textColor = Color.Black;
+            // 選択中の項目は色を変える
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) {
+                bgColor = SystemColors.Highlight;
+                textColor = SystemColors.HighlightText;
+                using (SolidBrush selBrush = new SolidBrush(bgColor)) {
+                    e.Graphics.FillRectangle(selBrush, e.Bounds);
+                }
+            }
+            // 項目のテキストを取得
+            string text = lbTitels.Items[e.Index].ToString();
+            // テキストを描画
+            using (SolidBrush textBrush = new SolidBrush(textColor)) {
+                e.Graphics.DrawString(text, e.Font, textBrush, e.Bounds.Left, e.Bounds.Top);
+            }
 
+        }
     }
 }
 

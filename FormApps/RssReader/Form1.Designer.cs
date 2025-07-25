@@ -68,6 +68,7 @@
             lbTitels.Size = new Size(490, 592);
             lbTitels.TabIndex = 2;
             lbTitels.Click += lbTitels_Click;
+            lbTitels.DrawItem += lbTitels_DrawItem;
             // 
             // mvRssLink
             // 
