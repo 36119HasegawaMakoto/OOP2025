@@ -56,10 +56,10 @@ namespace RssReader {
         }
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitels_Click(object sender, EventArgs e) {
-            if(items is null || lbTitels.SelectedItems is null) {
-                return;
+            if ((lbTitels.SelectedItem != null) && lbTitels.SelectedIndex >= 0 && lbTitels.SelectedIndex < items.Count) {
+                mvRssLink.Source = new Uri(items[lbTitels.SelectedIndex].Link);
+
             }
-            mvRssLink.Source = new Uri(items[lbTitels.SelectedIndex].Link);
         }
 
         //戻る
@@ -144,6 +144,22 @@ namespace RssReader {
                 e.Graphics.DrawString(text, e.Font, textBrush, e.Bounds.Left, e.Bounds.Top);
             }
 
+        }
+        //リロード
+        private void btReroad_Click(object sender, EventArgs e) {
+            if (mvRssLink.CoreWebView2 != null) {
+                mvRssLink.Reload();
+            }
+        }
+        //終了
+        private void endKey_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+        //色変更
+        private void cdCorer_Click(object sender, EventArgs e) {
+            if (cdCollar.ShowDialog() == DialogResult.OK) {
+                this.BackColor = cdCollar.Color;
+            }
         }
     }
 }

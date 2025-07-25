@@ -34,13 +34,20 @@
             label1 = new Label();
             btHome = new Button();
             btDelete = new Button();
+            btReroad = new Button();
+            menuStrip1 = new MenuStrip();
+            ファイルToolStripMenuItem = new ToolStripMenuItem();
+            endKey = new ToolStripMenuItem();
+            cdCollar = new ColorDialog();
+            cdCorer = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)mvRssLink).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // tbUrl
             // 
             tbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbUrl.Location = new Point(217, 15);
+            tbUrl.Location = new Point(259, 21);
             tbUrl.Name = "tbUrl";
             tbUrl.Size = new Size(490, 33);
             tbUrl.TabIndex = 0;
@@ -48,7 +55,7 @@
             // btRssGet
             // 
             btRssGet.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btRssGet.Location = new Point(713, 15);
+            btRssGet.Location = new Point(755, 19);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(75, 34);
             btRssGet.TabIndex = 1;
@@ -86,7 +93,7 @@
             // btForward
             // 
             btForward.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btForward.Location = new Point(93, 14);
+            btForward.Location = new Point(93, 20);
             btForward.Name = "btForward";
             btForward.Size = new Size(78, 29);
             btForward.TabIndex = 4;
@@ -97,7 +104,7 @@
             // btBack
             // 
             btBack.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btBack.Location = new Point(12, 15);
+            btBack.Location = new Point(12, 19);
             btBack.Name = "btBack";
             btBack.Size = new Size(75, 28);
             btBack.TabIndex = 5;
@@ -108,7 +115,7 @@
             // tbBookMarkName
             // 
             tbBookMarkName.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbBookMarkName.Location = new Point(191, 57);
+            tbBookMarkName.Location = new Point(191, 60);
             tbBookMarkName.Name = "tbBookMarkName";
             tbBookMarkName.Size = new Size(444, 29);
             tbBookMarkName.TabIndex = 6;
@@ -116,7 +123,7 @@
             // btBookmark
             // 
             btBookmark.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btBookmark.Location = new Point(641, 53);
+            btBookmark.Location = new Point(641, 56);
             btBookmark.Name = "btBookmark";
             btBookmark.Size = new Size(121, 34);
             btBookmark.TabIndex = 7;
@@ -137,7 +144,7 @@
             // 
             btHome.BackColor = SystemColors.Control;
             btHome.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btHome.Location = new Point(177, 14);
+            btHome.Location = new Point(177, 19);
             btHome.Name = "btHome";
             btHome.Size = new Size(34, 32);
             btHome.TabIndex = 10;
@@ -148,7 +155,7 @@
             // btDelete
             // 
             btDelete.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btDelete.Location = new Point(777, 53);
+            btDelete.Location = new Point(777, 59);
             btDelete.Name = "btDelete";
             btDelete.Size = new Size(53, 36);
             btDelete.TabIndex = 11;
@@ -156,11 +163,54 @@
             btDelete.UseVisualStyleBackColor = true;
             btDelete.Click += btDelete_Click;
             // 
+            // btReroad
+            // 
+            btReroad.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btReroad.Location = new Point(217, 21);
+            btReroad.Name = "btReroad";
+            btReroad.Size = new Size(36, 31);
+            btReroad.TabIndex = 12;
+            btReroad.Text = "↻\t";
+            btReroad.UseVisualStyleBackColor = true;
+            btReroad.Click += btReroad_Click;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { ファイルToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(934, 24);
+            menuStrip1.TabIndex = 13;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // ファイルToolStripMenuItem
+            // 
+            ファイルToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { endKey, cdCorer });
+            ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
+            ファイルToolStripMenuItem.Size = new Size(67, 20);
+            ファイルToolStripMenuItem.Text = "ファイル(&F)";
+            // 
+            // endKey
+            // 
+            endKey.Name = "endKey";
+            endKey.ShortcutKeys = Keys.Alt | Keys.F4;
+            endKey.Size = new Size(180, 22);
+            endKey.Text = "終了...";
+            endKey.Click += endKey_Click;
+            // 
+            // cdCorer
+            // 
+            cdCorer.Name = "cdCorer";
+            cdCorer.Size = new Size(180, 22);
+            cdCorer.Text = "色変更...";
+            cdCorer.Click += cdCorer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(934, 743);
+            Controls.Add(btReroad);
             Controls.Add(btDelete);
             Controls.Add(btHome);
             Controls.Add(label1);
@@ -172,10 +222,14 @@
             Controls.Add(lbTitels);
             Controls.Add(btRssGet);
             Controls.Add(tbUrl);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "RSSリーダー";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)mvRssLink).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -193,5 +247,11 @@
         private Label label1;
         private Button btHome;
         private Button btDelete;
+        private Button btReroad;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem ファイルToolStripMenuItem;
+        private ToolStripMenuItem endKey;
+        private ColorDialog cdCollar;
+        private ToolStripMenuItem cdCorer;
     }
 }
