@@ -69,17 +69,19 @@ namespace RssReader {
         }
         //ブグマ登録
         private void btBookmark_Click(object sender, EventArgs e) {
+            if(tbBookMarkName.Text == "") {
+                MessageBox.Show("名前入れてーーーーー");
+                return;
+            }
             //登録済みか確認
-            if (!tbUrl.Items.Contains(tbBookMarkName.Text)) {
-                string name = tbBookMarkName.Text;
-                string url = tbUrl.Text;
-                bookmarks[name] = url;
-                tbUrl.Items.Add(name);
+            if (!tbUrl.Items.Contains(tbBookMarkName.Text) && tbUrl.Text.Contains(".xml")) {
+                bookmarks[tbBookMarkName.Text] = tbUrl.Text;
+                tbUrl.Items.Add(tbBookMarkName.Text);
                 MessageBox.Show("登録できたよ");
 
                 tbBookMarkName.Clear();
             } else {
-                MessageBox.Show("違う名前にしてね");
+                MessageBox.Show("URLが間違ってるか名前がおんなじだよ");
             }
         }
         //ホームボタン
@@ -112,6 +114,7 @@ namespace RssReader {
             MessageBox.Show("名前が見つからないよ");
             tbBookMarkName.Clear();
         }
+
     }
 }
 

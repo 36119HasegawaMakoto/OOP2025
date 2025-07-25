@@ -58,13 +58,14 @@
             // 
             // lbTitels
             // 
-            lbTitels.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lbTitels.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            lbTitels.BackColor = SystemColors.Info;
             lbTitels.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
             lbTitels.FormattingEnabled = true;
             lbTitels.ItemHeight = 21;
             lbTitels.Location = new Point(12, 93);
             lbTitels.Name = "lbTitels";
-            lbTitels.Size = new Size(887, 193);
+            lbTitels.Size = new Size(490, 592);
             lbTitels.TabIndex = 2;
             lbTitels.Click += lbTitels_Click;
             // 
@@ -74,9 +75,9 @@
             mvRssLink.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mvRssLink.CreationProperties = null;
             mvRssLink.DefaultBackgroundColor = Color.White;
-            mvRssLink.Location = new Point(12, 292);
+            mvRssLink.Location = new Point(508, 95);
             mvRssLink.Name = "mvRssLink";
-            mvRssLink.Size = new Size(887, 393);
+            mvRssLink.Size = new Size(421, 590);
             mvRssLink.TabIndex = 3;
             mvRssLink.ZoomFactor = 1D;
             mvRssLink.SourceChanged += mvRssLink_SourceChanged;
