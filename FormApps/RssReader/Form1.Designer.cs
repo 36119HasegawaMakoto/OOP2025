@@ -33,6 +33,7 @@
             btBookmark = new Button();
             label1 = new Label();
             btHome = new Button();
+            btDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)mvRssLink).BeginInit();
             SuspendLayout();
             // 
@@ -124,11 +125,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(46, 65);
+            label1.Location = new Point(17, 65);
             label1.Name = "label1";
-            label1.Size = new Size(125, 15);
+            label1.Size = new Size(154, 15);
             label1.TabIndex = 8;
-            label1.Text = "お気に入りの名前を登録";
+            label1.Text = "お気に入りの名前を登録/削除";
             // 
             // btHome
             // 
@@ -142,11 +143,23 @@
             btHome.UseVisualStyleBackColor = false;
             btHome.Click += btHome_Click;
             // 
+            // btDelete
+            // 
+            btDelete.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btDelete.Location = new Point(777, 53);
+            btDelete.Name = "btDelete";
+            btDelete.Size = new Size(53, 36);
+            btDelete.TabIndex = 11;
+            btDelete.Text = "削除";
+            btDelete.UseVisualStyleBackColor = true;
+            btDelete.Click += btDelete_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(934, 743);
+            Controls.Add(btDelete);
             Controls.Add(btHome);
             Controls.Add(label1);
             Controls.Add(btBookmark);
@@ -177,5 +190,6 @@
         private Button btBookmark;
         private Label label1;
         private Button btHome;
+        private Button btDelete;
     }
 }

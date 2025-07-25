@@ -25,19 +25,10 @@ namespace RssReader {
         private Dictionary<string, string> bookmarks = new Dictionary<string, string>();
         //取得ボタン
         private async void btRssGet_Click(object sender, EventArgs e) {
-
             using (var hc = new HttpClient()) {
                 try {
                     string xml = await hc.GetStringAsync(tbUrl.Text);
-                    XDocument xdoc = XDocument.Parse(xml);
-                    //RSSを解析して必要な要素を取得
-                    items = xdoc.Root.Descendants("item").Select(x => new ItemDate {
-                        Title = (string?)x.Element("title"),
-                        Link = (string?)x.Element("link"),
-                    }).ToList();
-                    //リストボックスにタイトルを表示
-                    lbTitels.Items.Clear();
-                    items.ForEach(item => lbTitels.Items.Add(item.Title ?? "データなし"));
+                    getUrl(xml);
                 }
                 //お気に入りの判定
                 catch (Exception) {
@@ -45,17 +36,23 @@ namespace RssReader {
                     foreach (var okini in bookmarks) {
                         if (tbUrl.Text == okini.Key) {
                             string xml = await hc.GetStringAsync(okini.Value);
-                            XDocument xdoc = XDocument.Parse(xml);
-                            items = xdoc.Root.Descendants("item").Select(x => new ItemDate {
-                                Title = (string?)x.Element("title"),
-                                Link = (string?)x.Element("link"),
-                            }).ToList();
-                            lbTitels.Items.Clear();
-                            items.ForEach(item => lbTitels.Items.Add(item.Title ?? "データなし"));
+                            getUrl(xml);
                         }
                     }
                 }
             }
+        }
+        //取得処理
+        private void getUrl(string xml) {
+            XDocument xdoc = XDocument.Parse(xml);
+            //RSSを解析して必要な要素を取得
+            items = xdoc.Root.Descendants("item").Select(x => new ItemDate {
+                Title = (string?)x.Element("title"),
+                Link = (string?)x.Element("link"),
+            }).ToList();
+            //リストボックスにタイトルを表示
+            lbTitels.Items.Clear();
+            items.ForEach(item => lbTitels.Items.Add(item.Title ?? "データなし"));
         }
         //タイトルを選択したときに呼ばれるイベントハンドラ
         private void lbTitels_Click(object sender, EventArgs e) {
@@ -101,6 +98,19 @@ namespace RssReader {
         //フォームロード
         private void Form1_Load(object sender, EventArgs e) {
             GoFowerdbtEnableSet();
+        }
+        //お気に入り削除
+        private void btDelete_Click(object sender, EventArgs e) {
+            foreach (var dict in bookmarks) {
+                if (dict.Key == tbBookMarkName.Text) {
+                    tbUrl.Items.Remove(dict.Key);
+                    MessageBox.Show($"{dict.Key}が削除されたよ");
+                    tbBookMarkName.Clear();
+                    return;
+                }
+            }
+            MessageBox.Show("名前が見つからないよ");
+            tbBookMarkName.Clear();
         }
     }
 }
