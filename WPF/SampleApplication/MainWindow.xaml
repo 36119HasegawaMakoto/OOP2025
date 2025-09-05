@@ -23,26 +23,26 @@
 
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="項目"/>
         <TextBlock Grid.Column="2" Text="規定値"/>
-        <Label Grid.Row="1" Content="ON/OFF(_O)"/>
+        <Label Grid.Row="1" Content="ON/OFF(_O)" Target="{Binding ElementName=checbox,Mode=OneWay}"/>
         <CheckBox x:Name="checbox" Grid.Row="1" Grid.Column="1" Content="チェックしたらON" 
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center" Checked="checbox_Checked" Unchecked="checbox_Unchecked"/>
         <TextBlock x:Name="checkBoxTextBlock" Grid.Row="1" Grid.Column="2"
                    VerticalAlignment="Center"/>
-        <Label Grid.Row="2" Content="色(_C)"/>
+        <Label Grid.Row="2" Content="色(_C)" Target="{Binding ElementName=redRadioButoon,Mode=OneWay}"/>
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <RadioButton x:Name="redRadioButoon" GroupName="Color" Content="赤"/>
-            <RadioButton x:Name="yellowRadioButoon" GroupName="Color" Content="黄"/>
-            <RadioButton x:Name="blueRadioButoon" GroupName="Color" Content="青"/>
+            <RadioButton x:Name="redRadioButoon" GroupName="Color" Content="赤" Checked="colorRadioButoon_Checked"/>
+            <RadioButton x:Name="yellowRadioButoon" GroupName="Color" Content="黄" Checked="colorRadioButoon_Checked"/>
+            <RadioButton x:Name="blueRadioButoon" GroupName="Color" Content="青" Checked="colorRadioButoon_Checked"/>
         </StackPanel>
         <TextBlock x:Name="colorText" Grid.Row="2" Grid.Column="2"/>
-        <Label Grid.Row="3" Content="季節(_S)"/>
-        <ComboBox x:Name="seasonComboBox" Grid.Row="3" Grid.Column="1">
-            <ComboBoxItem Content="春"/>
-            <ComboBoxItem Content="夏"/>
-            <ComboBoxItem Content="秋"/>
-            <ComboBoxItem Content="冬"/>
-        </ComboBox>
-        <TextBlock x:Name="seasonTextBlock" Grid.Row="3" Grid.Column="2"/>
-
+            <Label Grid.Row="3" Content="季節(_S)" Target="{Binding ElementName=seasonComboBox,Mode=OneWay}"/>
+            <ComboBox x:Name="seasonComboBox" Grid.Row="3" Grid.Column="1" 
+                      SelectionChanged="seasonComboBox_SelectionChanged">
+                <ComboBoxItem Content="春"/>
+                <ComboBoxItem Content="夏"/>
+                <ComboBoxItem Content="秋"/>
+                <ComboBoxItem Content="冬"/>
+            </ComboBox>
+            <TextBlock x:Name="seasonTextBlock" Grid.Row="3" Grid.Column="2"/>       
     </Grid>
 </Window>
