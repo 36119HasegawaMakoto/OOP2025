@@ -39,8 +39,8 @@ namespace CollarChecker {
             // colorAreaの背景色を変更
             colorArea.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
             //名前さがすよ
-            Color currentColor = Color.FromRgb(r, g, b);
-            var match = allColors.FirstOrDefault(c => c.Color == currentColor);
+            Color searchcolor = Color.FromRgb(r, g, b);
+            var match = allColors.FirstOrDefault(c => c.Color == searchcolor);
             if (!match.Equals(default(MyColor))) {
                 //コンボボックスに名前を表示
                 colorSelectComboBox.SelectedItem = match;
@@ -54,22 +54,40 @@ namespace CollarChecker {
             byte r = (byte)rSlider.Value, g = (byte)gSlider.Value, b = (byte)bSlider.Value;
             Color color = Color.FromRgb(r, g, b);
             string name = "";
-            if (colorSelectComboBox.SelectedItem is MyColor selectedColor) {
+            if (colorSelectComboBox.SelectedItem is MyColor colorname) {
                 // 選択されている色の名前を取得
-                name = selectedColor.Name;
+                name = colorname.Name;
             }
-                MyColor myColor = new MyColor {
+            //重複あるかな
+            if (!stockColors.Any(c => c.Color == color)) {
+                stockColors.Add(new MyColor {
                     Color = color,
                     Name = name
-                };
-                stockColors.Add(myColor);            
+                });
+            }         
         }
         //コンボボックス
         private void colorSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (colorSelectComboBox.SelectedItem is MyColor selectedColor) {
-                rSlider.Value = selectedColor.Color.R;
-                gSlider.Value = selectedColor.Color.G;
-                bSlider.Value = selectedColor.Color.B;
+            if (colorSelectComboBox.SelectedItem is MyColor colorrgb) {
+                rSlider.Value = colorrgb.Color.R;
+                gSlider.Value = colorrgb.Color.G;
+                bSlider.Value = colorrgb.Color.B;
+            }
+        }
+        //削除ボタン
+        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
+            if (stockList.SelectedItem != null) {
+                var item = (MyColor)stockList.SelectedItem;
+                stockColors.Remove(item);
+            }
+        }
+        //反映ボタン
+        private void RefrextButton_Click(object sender, RoutedEventArgs e) {
+            if (stockList.SelectedItem != null) {
+                var item = (MyColor)stockList.SelectedItem;
+                rSlider.Value = item.Color.R;
+                gSlider.Value = item.Color.G;
+                bSlider.Value = item.Color.B;
             }
         }
     }

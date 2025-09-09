@@ -71,12 +71,21 @@
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                
+                
             </Grid.RowDefinitions>
             <!--ここから追加-->
             <Button Content="STOCK" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Width="213" Height="27" Click="StockButton_Click"/>
-            <ListBox x:Name="stockList" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=0}"/>
+            <ListBox x:Name="stockList" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=0}"/>
+            
+            <Button Content="DELETE" HorizontalAlignment="Left"  
+                    Grid.Row="1" VerticalAlignment="Center" Width="100" Click="DeleteButton_Click"/>
+            <Button Content="REFLECTION" HorizontalAlignment="Right"  
+                Grid.Row="1" VerticalAlignment="Center" Width="100" Click="RefrextButton_Click"/>
+            
 
         </Grid>
 
