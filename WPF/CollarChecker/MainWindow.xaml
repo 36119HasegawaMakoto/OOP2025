@@ -29,31 +29,44 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Ｒ" FontSize="30"
                        HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Slider x:Name="rSlider" Grid.Row="0" Grid.Column="1" 
-                    Maximum="255"  VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
+                    Maximum="255"  VerticalAlignment="Center" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" 
                      VerticalAlignment="Center" FontSize="20" 
-                     Text="{Binding ElementName=rSlider, Path=Value, Mode=TwoWay, StringFormat=N0}"/>
+                     Text="{Binding ElementName=rSlider, Path=Value, Mode=TwoWay}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Ｇ" FontSize="30"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Slider x:Name="gSlider" Grid.Row="1" Grid.Column="1" 
-                    Maximum="255"  VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
+                    Maximum="255"  VerticalAlignment="Center" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" 
                      VerticalAlignment="Center" FontSize="20"
-                     Text="{Binding ElementName=gSlider, Path=Value, Mode=TwoWay, StringFormat=N0}"/>
+                     Text="{Binding ElementName=gSlider, Path=Value, Mode=TwoWay}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Ｂ" FontSize="30"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" 
-                    Maximum="255"  VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
+                    Maximum="255"  VerticalAlignment="Center" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" 
                      VerticalAlignment="Center" FontSize="20"
-                     Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay, StringFormat=N0}"/>
+                     Text="{Binding ElementName=bSlider, Path=Value, Mode=TwoWay}"/>
 
 
             <ComboBox x:Name="colorSelectComboBox" Grid.Row="3" Grid.ColumnSpan="3" 
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Width="186" 
-                      SelectionChanged="colorSelectComboBox_SelectionChanged"/>
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Width="186"
+                      SelectionChanged="colorSelectComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="20" Height="Auto" Margin="5,0" BorderThickness="1" BorderBrush="Black"  >
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding Color}"/>
+                            </Border.Background>
+                        </Border>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
