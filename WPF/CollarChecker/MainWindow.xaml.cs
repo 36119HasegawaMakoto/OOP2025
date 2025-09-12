@@ -24,7 +24,6 @@ namespace CollarChecker {
             InitializeComponent();
             allColors = GetColorList();
             stockList.ItemsSource = stockColors;  //バインド
-            colorSelectComboBox.ItemsSource = GetColorList();
             colorSelectComboBox.ItemsSource = allColors;
         }
         //全部の色とってくる
@@ -64,7 +63,9 @@ namespace CollarChecker {
                     Color = color,
                     Name = name
                 });
-            }         
+            } else {
+                MessageBox.Show("重複があるます");
+            }        
         }
         //コンボボックス
         private void colorSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -77,8 +78,9 @@ namespace CollarChecker {
         //削除ボタン
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {
             if (stockList.SelectedItem != null) {
-                var item = (MyColor)stockList.SelectedItem;
-                stockColors.Remove(item);
+                stockColors.Remove((MyColor)stockList.SelectedItem);
+            } else {
+                MessageBox.Show("選択してください");
             }
         }
         //反映ボタン
@@ -88,6 +90,8 @@ namespace CollarChecker {
                 rSlider.Value = item.Color.R;
                 gSlider.Value = item.Color.G;
                 bSlider.Value = item.Color.B;
+            } else {
+                MessageBox.Show("選択してください");
             }
         }
     }
