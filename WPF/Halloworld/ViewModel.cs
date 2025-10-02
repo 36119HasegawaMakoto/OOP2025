@@ -9,14 +9,18 @@ namespace Halloworld {
     class ViewModel : BindableBase
         {
         public ViewModel(){
-            ChangeMessageCommand = new DelegateCommand(
-                () => GreetingMessage = "Bye-bye world");
+            ChangeMessageCommand = new DelegateCommand<string>(
+                (par) => GreetingMessage = par);
             }
         private string _greetigMessage = "Hello World!";
         public string GreetingMessage {
             get=>_greetigMessage;
-            set => SetProperty(ref _greetigMessage, value);
-                
+            set{
+                if (SetProperty(ref _greetigMessage, value)) {
+                    CanChangeMessage = false;
+                }
+
+            }                
                 
             //    {
             //    if (_greetigMessage != value) {
@@ -25,7 +29,15 @@ namespace Halloworld {
             //            this, new PropertyChangedEventArgs(nameof(GreetingMessage)));
             //    }
             //}
-        } 
-        public DelegateCommand ChangeMessageCommand { get; }
+        }
+        private bool _canChangeMessage = true;
+        public bool CanChangeMessage {
+            get => _canChangeMessage;
+            private set => SetProperty(ref _canChangeMessage, value);
+        }
+
+        public string NewMessage1 { get; } = "message1dayo-";
+        public string NewMessage2 { get; } = "nikomenomessagedayo-";
+        public DelegateCommand<string> ChangeMessageCommand { get; }
     }
 }
