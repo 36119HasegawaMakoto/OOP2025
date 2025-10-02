@@ -9,15 +9,25 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox Name="MetricValue" Margin="4" Width="100"/>
-            <ComboBox Name="MetricUnit" Margin="4" Width="80"/>            
+            <ComboBox Name="MetricUnit" Margin="4" Width="80">
+                <ComboBoxItem>mm</ComboBoxItem>
+                <ComboBoxItem>cm</ComboBoxItem>
+                <ComboBoxItem>m</ComboBoxItem>
+                <ComboBoxItem>km</ComboBoxItem>
+            </ComboBox>
         </StackPanel>        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="ImperialUnitToetric" Margin="4" Width="40" Content="▲"/>
-            <Button Name="MetricUnitToetric" Margin="4" Width="40" Content="▼"/>
+            <Button Name="ImperialUnitToetric" Margin="4" Width="40" Content="▲" Click="ImperialUnitToetric_Click"/>
+            <Button Name="MetricUnitToetric" Margin="4" Width="40" Content="▼" Click="MetricUnitToetric_Click"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox Name="ImperialUnitToMetric" Margin="4" Width="100"/>
-            <ComboBox Name="MetricToImperialUnit" Margin="4" Width="80"/>
+            <ComboBox Name="MetricToImperialUnit" Margin="4" Width="80">
+                <ComboBoxItem>in</ComboBoxItem>
+                <ComboBoxItem>ft</ComboBoxItem>
+                <ComboBoxItem>yd</ComboBoxItem>
+                <ComboBoxItem>ml</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </StackPanel>
 </Window>

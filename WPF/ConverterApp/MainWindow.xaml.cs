@@ -13,16 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConverterApp
-{
+namespace ConverterApp {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+    public partial class MainWindow : Window {
+        public MainWindow() {
             InitializeComponent();
         }
+        //上のボタン
+        private void ImperialUnitToetric_Click(object sender, RoutedEventArgs e) {
+            if(MetricValue.Text == "") {
+                MessageBox.Show("あたい入れてねー");
+            }
+
+        }
+        //下のボタン
+        private void MetricUnitToetric_Click(object sender, RoutedEventArgs e) {
+            if(ImperialUnitToMetric.Text == "") {
+                MessageBox.Show("あたい入れてねー");
+            }
+        } 
     }
 }
