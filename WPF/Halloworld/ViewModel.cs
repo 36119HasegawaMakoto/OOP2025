@@ -6,22 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Halloworld {
-    class ViewModel : BindableBase
-        {
-        public ViewModel(){
+    class ViewModel : BindableBase {
+        public ViewModel() {
             ChangeMessageCommand = new DelegateCommand<string>(
-                (par) => GreetingMessage = par);
-            }
+                (par) => GreetingMessage = par,
+                (par) => GreetingMessage != par)
+                .ObservesProperty(() => GreetingMessage);
+        }
         private string _greetigMessage = "Hello World!";
         public string GreetingMessage {
-            get=>_greetigMessage;
-            set{
-                if (SetProperty(ref _greetigMessage, value)) {
-                    CanChangeMessage = false;
-                }
+            get => _greetigMessage;
+            set {
+                SetProperty(ref _greetigMessage, value);
 
-            }                
-                
+            }
+
             //    {
             //    if (_greetigMessage != value) {
             //        _greetigMessage = value;
@@ -30,11 +29,11 @@ namespace Halloworld {
             //    }
             //}
         }
-        private bool _canChangeMessage = true;
-        public bool CanChangeMessage {
-            get => _canChangeMessage;
-            private set => SetProperty(ref _canChangeMessage, value);
-        }
+        //private bool _canChangeMessage = true;
+        //public bool CanChangeMessage {
+        //    get => _canChangeMessage;
+        //    private set => SetProperty(ref _canChangeMessage, value);
+        //}
 
         public string NewMessage1 { get; } = "message1dayo-";
         public string NewMessage2 { get; } = "nikomenomessagedayo-";
