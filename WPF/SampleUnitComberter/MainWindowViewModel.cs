@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SampleUnitComberter {
-    class MainWindowViewModel : ViewModel {
+    class MainWindowViewModel : BindableBase {
         //フィールド
         private double metricValue;
         private double imperialValue;
@@ -28,18 +29,12 @@ namespace SampleUnitComberter {
         //プロパティ
         public double MetricValue {
             get => metricValue;
-            set {
-                this.metricValue = value;
-                this.OnPropertyChanged();
-            }
+            set {SetProperty(ref metricValue, value);}
 
         }
         public double ImperialValue {
             get => imperialValue;
-            set {
-                this.imperialValue = value;
-                this.OnPropertyChanged();
-            }
+            set { SetProperty(ref imperialValue, value); }
 
         }
         public MainWindowViewModel() {
@@ -47,12 +42,12 @@ namespace SampleUnitComberter {
             CurrentImperialUnit = ImperialUnit.Units.First();
 
 
-            ImperialUnitToMetric = new DelegateCommand(
+            ImperialUnitToMetric = new Prism.Commands.DelegateCommand(
                 () => MetricValue = 
                 CurrentMetricUnit.FromImperialUnit(CurrentImperialUnit, ImperialValue));
 
-            MetricUnitToImperial = new DelegateCommand(
-                () => MetricValue =
+            MetricUnitToImperial = new Prism.Commands.DelegateCommand(
+                () => ImperialValue =
                 CurrentImperialUnit.FromMetricUnit(CurrentMetricUnit, MetricValue));
         }
     }
