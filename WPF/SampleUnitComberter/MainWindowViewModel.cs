@@ -1,5 +1,4 @@
-﻿using SampleUnitConverter;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -16,10 +15,10 @@ namespace SampleUnitComberter {
         private double imperialValue;
 
         //▲でおバレルコマンド
-        public ICommand ImperialUnitToMetric { get; private set; }
+        public Prism.Commands.DelegateCommand ImperialUnitToMetric { get; private set; }
 
         //▼で呼ばれる駒野づ
-        public ICommand MetricUnitToImperial { get; private set; }
+        public Prism.Commands.DelegateCommand MetricUnitToImperial { get; private set; }
 
         //上のコンボボックスで線たっくされてう裸体
         public MetricUnit CurrentMetricUnit { get; set; }
