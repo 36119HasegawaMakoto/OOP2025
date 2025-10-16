@@ -94,5 +94,9 @@ namespace CollarChecker {
                 MessageBox.Show("選択してください");
             }
         }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<T> e) {
+
+        }
     }
 }
