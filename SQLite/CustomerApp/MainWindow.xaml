@@ -5,52 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomerApp" 
         mc:Ignorable="d"
-        Title="顧客管理アプリケーション"  Width="520" Height="300">
+        Title="顧客管理アプリケーション"  Width="750" Height="450">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="5" >
+        <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,0"  >
             <StackPanel Orientation="Horizontal">
                 <Label Content="名前:" Width="60" />
-                <TextBox x:Name="NameBox" Width="180" Height="20"/>
+                <TextBox x:Name="NameBox" Width="230" Height="30"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="電話番号:" Width="60" />
-                <TextBox x:Name="PhoneBox" Width="180" Height="20"/>
+                <TextBox x:Name="PhoneBox" Width="230" Height="30"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="住所:" Width="60" />
-                <TextBox x:Name="BasyoBox" Width="180" Height="20"/>
+                <TextBox x:Name="AddresBox" Width="230" Height="30"/>
             </StackPanel>
-            <Button  Content="画像の選択" x:Name="PictureButton" Click="PictureButton_Click"/>
-            <Image Name="PicturePreview" Width="180" Height="150" Stretch="Uniform"/>
+            <Button  Content="画像の選択" x:Name="PictureButton" Click="PictureButton_Click" Margin="5" Height="30"/>
+            <Image Name="PicturePreview" Width="300" Height="200" Stretch="Uniform"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <Button x:Name="Save" Content="追加" Width="60" Margin="0,0,10,0" Click="Save_Click" />
-                <Button x:Name="Update" Content="更新" Width="60" Margin="0,0,10,0" Click="Update_Click" />
-                <Button x:Name="Delete" Content="削除" Width="60" Click="Delete_Click" />
+                <Button x:Name="Save" Content="追加" Width="60" Margin="10" Click="Save_Click" Height="30"/>
+                <Button x:Name="Update" Content="更新" Width="60" Margin="10" Click="Update_Click" />
+                <Button x:Name="Delete" Content="削除" Width="60" Margin="10" Click="Delete_Click" />
             </StackPanel>
         </StackPanel>
         <ScrollViewer Grid.Column="1" Margin="10">
-            <ItemsControl x:Name="CustomerList">
-                <ItemsControl.ItemTemplate>
+            <ListBox x:Name="CustomerList" Margin="10">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray" BorderThickness="1" Padding="10" Margin="0,0,0,10">
+                        <Border BorderBrush="Gray" BorderThickness="1" >
                             <DockPanel>
-                                <Image Source="{Binding PictureImage}" Width="80" Height="80" Margin="10,0,0,0" DockPanel.Dock="Right"/>
+                                <Image Source="{Binding PictureImage}" Width="120" Height="80" DockPanel.Dock="Right" Margin="10"/>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Phone}" />
-                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
+                                    <TextBlock Text="{Binding Phone}" Foreground="BlueViolet" FontSize="15"/>
+                                    <TextBlock Text="{Binding Address}" Foreground="Blue"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </ScrollViewer>
 
 
