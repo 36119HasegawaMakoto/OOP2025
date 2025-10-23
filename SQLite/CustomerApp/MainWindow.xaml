@@ -14,17 +14,17 @@
         <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,0"  >
             <StackPanel Orientation="Horizontal">
                 <Label Content="名前:" Width="60" />
-                <TextBox x:Name="NameBox" Width="270" Height="30"/>
+                <TextBox x:Name="NameBox" Width="270" Height="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="電話番号:" Width="60" />
-                <TextBox x:Name="PhoneBox" Width="270" Height="30"/>
+                <TextBox x:Name="PhoneBox" Width="270" Height="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="住所:" Width="60" />
-                <TextBox x:Name="AddresBox" Width="270" Height="30"/>
+                <TextBox x:Name="AddresBox" Width="270" Height="25"/>
             </StackPanel>
             <Button  Content="画像の選択" x:Name="PictureButton" Click="PictureButton_Click" Margin="5" Height="30"/>
             <StackPanel Orientation="Horizontal" >
