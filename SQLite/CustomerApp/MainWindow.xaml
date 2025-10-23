@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomerApp" 
         mc:Ignorable="d"
-        Title="顧客管理アプリケーション"  Width="750" Height="450">
+        Title="顧客管理アプリケーション"  Width="800" Height="460">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />
@@ -14,28 +14,32 @@
         <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,0"  >
             <StackPanel Orientation="Horizontal">
                 <Label Content="名前:" Width="60" />
-                <TextBox x:Name="NameBox" Width="230" Height="30"/>
+                <TextBox x:Name="NameBox" Width="270" Height="30"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="電話番号:" Width="60" />
-                <TextBox x:Name="PhoneBox" Width="230" Height="30"/>
+                <TextBox x:Name="PhoneBox" Width="270" Height="30"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
                 <Label Content="住所:" Width="60" />
-                <TextBox x:Name="AddresBox" Width="230" Height="30"/>
+                <TextBox x:Name="AddresBox" Width="270" Height="30"/>
             </StackPanel>
             <Button  Content="画像の選択" x:Name="PictureButton" Click="PictureButton_Click" Margin="5" Height="30"/>
+            <StackPanel Orientation="Horizontal" >
+                <TextBox x:Name="PictureUrl" Height="25" Width="260" Margin="5"/>
+                <Button Content="画像の取得" x:Name="PictureUrlButton" Click="PictureUrlButton_Click"/>
+            </StackPanel>           
             <Image Name="PicturePreview" Width="300" Height="200" Stretch="Uniform"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <Button x:Name="Save" Content="追加" Width="60" Margin="10" Click="Save_Click" Height="30"/>
-                <Button x:Name="Update" Content="更新" Width="60" Margin="10" Click="Update_Click" />
-                <Button x:Name="Delete" Content="削除" Width="60" Margin="10" Click="Delete_Click" />
+                <Button x:Name="Save" Content="追加" Width="60" Margin="10" Click="Save_Click" Height="30" Background="Pink"/>
+                <Button x:Name="Update" Content="更新" Width="60" Margin="10" Click="Update_Click" Background="Aqua"/>
+                <Button x:Name="Delete" Content="削除" Width="60" Margin="10" Click="Delete_Click" Background="Yellow"/>
             </StackPanel>
         </StackPanel>
         <ScrollViewer Grid.Column="1" Margin="10">
-            <ListBox x:Name="CustomerList" Margin="10">
+            <ListBox x:Name="CustomerList" Margin="10" SelectionChanged="CustomerList_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="Gray" BorderThickness="1" >
