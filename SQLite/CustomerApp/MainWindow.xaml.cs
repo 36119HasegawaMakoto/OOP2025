@@ -3,6 +3,8 @@ using SQLite;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading.Tasks;
 
 namespace CustomerApp {
     /// <summary>
@@ -27,7 +28,7 @@ namespace CustomerApp {
             CustomerList.ItemsSource = _customer;
         }
         //保存ボタン
-        private  void Save_Click(object sender, RoutedEventArgs e) {
+        private void Save_Click(object sender, RoutedEventArgs e) {
             var name = NameBox.Text.Trim();
             var phone = PhoneBox.Text.Trim();
             var address = AddresBox.Text.Trim();
@@ -150,6 +151,7 @@ namespace CustomerApp {
             var imageUrl = PictureUrl.Text.Trim();
             if (string.IsNullOrEmpty(imageUrl)) {
                 MessageBox.Show("画像URL入力求");
+                return;
             }
             try {
                 using (var client = new HttpClient()) {
@@ -162,11 +164,53 @@ namespace CustomerApp {
                         bitmap.StreamSource = ms;
                         bitmap.EndInit();
                         PicturePreview.Source = bitmap;
-                    }                   
+                    }
                 }
             }
             catch (Exception ex) {
                 MessageBox.Show($"画像を読み込めませんでした。\n{ex.Message}");
+            }
+        }
+        // 郵便番号検索ボタン
+        private async void PostalSearchButton_Click(object sender, RoutedEventArgs e) {
+            var postalCode = PostalCodeBox.Text.Trim().Replace("-", "");
+            if (postalCode.Length != 7) {
+                MessageBox.Show("7桁で入力してください。");
+                return;
+            }
+
+            try {
+                using (var client = new HttpClient()) {
+                    var url = $"https://jp-postal-code-api.ttskch.com/api/v1/{postalCode}.json";
+                    var json = await client.GetStringAsync(url);
+
+                    using var doc = JsonDocument.Parse(json);
+                    var root = doc.RootElement;
+
+                    if (!root.TryGetProperty("addresses", out var addresses) || addresses.GetArrayLength() == 0) {
+                        MessageBox.Show("住所が見つかりませんでした。");
+                        return;
+                    }
+
+                    var first = addresses[0];
+                    var ja = first.GetProperty("ja");
+
+                    string GetProp(string name) =>
+                        ja.TryGetProperty(name, out var p) ? p.GetString() ?? "" : "";
+
+                    var prefecture = GetProp("prefecture");
+                    var address1 = GetProp("address1");
+                    var address2 = GetProp("address2");
+                    
+
+                    var parts = new[] { prefecture, address1, address2,}
+                                .Where(s => !string.IsNullOrWhiteSpace(s));
+
+                    AddresBox.Text = string.Join("", parts);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"住所取得中にエラーが発生しました。\n{ex.Message}");
             }
         }
     }

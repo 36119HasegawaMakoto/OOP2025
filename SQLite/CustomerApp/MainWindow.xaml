@@ -22,8 +22,14 @@
                 <TextBox x:Name="PhoneBox" Width="270" Height="25"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" >
-                <Label Content="住所:" Width="60" />
+            <StackPanel Orientation="Horizontal">
+                <Label Content="郵便番号:" Width="60"/>
+                <TextBox x:Name="PostalCodeBox" Width="180" Height="25" Margin="0,0,5,0"/>
+                <Button Content="住所検索" x:Name="PostalSearchButton" Width="80" Click="PostalSearchButton_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="住所:" Width="60"/>
                 <TextBox x:Name="AddresBox" Width="270" Height="25"/>
             </StackPanel>
             <Button  Content="画像の選択" x:Name="PictureButton" Click="PictureButton_Click" Margin="5" Height="30"/>
