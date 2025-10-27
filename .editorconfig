@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0210: 最上位レベルのステートメントに変換する
+csharp_style_prefer_top_level_statements = true
