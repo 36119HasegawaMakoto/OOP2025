@@ -115,7 +115,19 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_8() {
-
+            var book = Library.Categories
+               .GroupJoin(Library.Books,
+               c => c.Id,
+               b => b.CategoryId,
+               (c, book) => new {
+                   category = c.Name,
+                   Books = book,
+                   count = book.Count()
+               })
+               .Where(x => x.count >= 4);
+            foreach (var item in book) {
+                Console.WriteLine($"{item.category}");
+            }
         }
     }
 }
