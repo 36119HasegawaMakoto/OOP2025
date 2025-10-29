@@ -41,8 +41,24 @@
             foreach (var item in selected) {
                 Console.WriteLine($"{book!.PublishedYear}年 {book!.Title} ({book!.Price})");
             }
-           
+            //p307
+            Console.WriteLine();
+            var book3 = Library.Books
+                 .Join(Library.Categories,
+                 book => book.CategoryId,
+                 category => category.Id,
+                 (book, category) => new {
+                     book.Title,
+                     Category = category.Name,
+                     book.PublishedYear
+                 })
+                 .OrderBy(b => b.PublishedYear)
+                 .ThenBy(b => b.Category);
+            foreach (var book4 in book3) {
+                Console.WriteLine($"{book4.Title},{book4.Category},{book4.PublishedYear}");
+            }
 
         }
+    
     }
 }
