@@ -91,11 +91,27 @@ namespace Exercise01 {
                     Console.WriteLine($"   {name.name}");
                 }
             }
-
         }
 
         private static void Exercise1_7() {
-
+            var book = Library.Books
+               .Join(Library.Categories,
+               book => book.CategoryId,
+               category => category.Id,
+               (book, category) => new {
+                   Book = book.CategoryId,
+                   Category = category.Name,
+                   name = book.Title,
+                   year = book.PublishedYear
+               })
+               .Where(x=>x.Category == "Development")
+               .GroupBy(x => x.year);
+            foreach (var item in book) {
+                Console.WriteLine($"#{item.Key}");
+                foreach (var name in item) {
+                    Console.WriteLine($"   {name.name}");
+                }
+            }
         }
 
         private static void Exercise1_8() {
