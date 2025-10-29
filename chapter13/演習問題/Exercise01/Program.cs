@@ -65,7 +65,8 @@ namespace Exercise01 {
                     Category = category.Name,
                     year = book.PublishedYear
                 });
-            var books = book.Where(x => x.year == 2022);
+            var books = book.Where(x => x.year == 2022)
+                .Distinct();
             foreach (var item in books) {
                 Console.WriteLine($"{item.Category}");
             }           
@@ -73,6 +74,23 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
+            var book = Library.Books
+                .Join(Library.Categories,
+                book => book.CategoryId,
+                category => category.Id,
+                (book, category) => new {
+                    Book = book.CategoryId,
+                    Category = category.Name,
+                    name = book.Title,
+                })
+                .GroupBy(x => x.Category)
+                .OrderBy(x=>x.Key);
+            foreach (var item in book) {
+                Console.WriteLine($"#{item.Key}");
+                foreach (var name in item) {
+                    Console.WriteLine($"   {name.name}");
+                }
+            }
 
         }
 
