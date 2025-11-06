@@ -1,0 +1,24 @@
+﻿<Window x:Class="WebBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebBrowser"
+        xmlns:Wpf ="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/><!--アドレスバー-->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Margin="5">
+            <Button x:Name="backbt" Content="戻る" Width="60" Margin="0,0,5,0" Click="BackButton_Click"/>
+            <Button x:Name="fowardbt" Content="進む" Width="60" Margin="0,0,5,0" Click="FowardButton_Click"/>
+            <TextBox x:Name="AddressBar" Width="450" Margin="0,0,5,0" VerticalAlignment="Center"/>
+            <Button Content="移動" Width="60" Click="GoButton_Click"/>
+        </DockPanel>
+        <Wpf:WebView2 x:Name="WebView" Margin="5" Grid.Row="2"/>
+    </Grid>
+</Window>
