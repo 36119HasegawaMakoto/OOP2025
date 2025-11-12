@@ -14,14 +14,19 @@ namespace TextFileProcessor {
         private void Process(string fileName) {
             Initialize(fileName);
             var lines = File.ReadLines(fileName);
+            Console.WriteLine("検索する単語");
+            var tango = Console.ReadLine();
             foreach (var line in lines) {
-                Execute(line);
+                if (line.Contains(tango)) {
+                    Execute(line);
+
+                }
             }
             Terminate();
         }
 
         protected virtual void Initialize(string fname) { }
-        protected virtual void Execute(string line) { }
+        protected virtual void Execute(string word) { }
         protected virtual void Terminate() { }
     }
 }
