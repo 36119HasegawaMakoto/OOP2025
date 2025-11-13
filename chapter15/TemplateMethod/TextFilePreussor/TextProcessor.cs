@@ -19,7 +19,6 @@ namespace TextFileProcessor {
             foreach (var line in lines) {
                 if (line.Contains(tango)) {
                     Execute(line);
-
                 }
             }
             Terminate();
