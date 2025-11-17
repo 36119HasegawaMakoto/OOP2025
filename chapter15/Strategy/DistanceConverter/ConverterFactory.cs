@@ -12,6 +12,8 @@ namespace DistanceConverter {
             new FeetConverter(),
             new YardConverter(),
             new InchConverter(),
+            new MileConverter(),
+            new KmConverter(),
         };
         public static ConverterBase? GetInstance(string  name) =>
             _convarters.FirstOrDefault(x=>x.IsMyUnit(name));

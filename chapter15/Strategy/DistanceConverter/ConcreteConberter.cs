@@ -29,6 +29,18 @@ namespace DistanceConverter {
         protected override double Ratio => 0.9144;
         public override string UnitName => "ヤード";
     }
+    public class MileConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "mile" || name == UnitName;
+        protected override double Ratio => 1609.344;
+        public override string UnitName => "マイル";
+    }
+    public class KmConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "km" || name == UnitName;
+        protected override double Ratio => 1000;
+        public override string UnitName => "キロメートル";
+    }
 
 
 }
