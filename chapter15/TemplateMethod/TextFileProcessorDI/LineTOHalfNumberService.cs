@@ -15,8 +15,11 @@ namespace TextFileProcessorDI {
 
         public void Execute(string line) {
             string num = Strings.StrConv(line, VbStrConv.Narrow, 0);
+            //string result = new string(
+            //    line.Select(c => ('０' <= c && c <= '９') ? (char)(c - '０' + '0') : c).ToArray());
             Console.WriteLine(num);
         }
+        
 
         public void Terminate() {
 
