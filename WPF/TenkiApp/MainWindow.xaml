@@ -5,8 +5,11 @@
         Background="#FFF5F8FA" ResizeMode="CanResize"
         Closing="Window_Closing">
     <Window.Resources>
-        <!-- 可愛いコンボボックススタイル -->
-        <Style x:Key="RoundedComboBox" TargetType="ComboBox">
+        <!-- 検索可能なコンボボックススタイル -->
+        <Style x:Key="SearchableComboBox" TargetType="ComboBox">
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="IsTextSearchEnabled" Value="False"/>
+            <Setter Property="StaysOpenOnEdit" Value="True"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Yu Gothic UI"/>
             <Setter Property="Padding" Value="12,8"/>
@@ -64,12 +67,16 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <ContentPresenter Grid.Column="0"
-                                                    Content="{TemplateBinding SelectionBoxItem}"
-                                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="5,0,0,0"/>
+                                    <TextBox x:Name="PART_EditableTextBox"
+                                            Grid.Column="0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            FontFamily="{TemplateBinding FontFamily}"
+                                            VerticalAlignment="Center"
+                                            Padding="5,0,0,0"
+                                            IsReadOnly="False"/>
                                     <ToggleButton Grid.Column="1"
                                                 Background="Transparent"
                                                 BorderThickness="0"
@@ -92,7 +99,7 @@
                                         BorderThickness="2"
                                         CornerRadius="12"
                                         Margin="0,5,0,0"
-                                        MaxHeight="200"
+                                        MaxHeight="250"
                                         MinWidth="{TemplateBinding ActualWidth}">
                                     <Border.Effect>
                                         <DropShadowEffect Color="#FFCCCCCC" Direction="315" ShadowDepth="3" Opacity="0.3" BlurRadius="8"/>
@@ -222,12 +229,40 @@
                              Height="120"
                              BorderThickness="0"
                              Background="Transparent"
-                             SelectionChanged="LstFavorites_SelectionChanged">
+                             SelectionChanged="LstFavorites_SelectionChanged"
+                             SelectionMode="Single">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="8,5"/>
+                                <Setter Property="Margin" Value="2"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFEFF8FF"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#FFD4EDFF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding}" Margin="0,0,10,0"/>
-                                    <Button Content="×" 
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding}" 
+                                               FontSize="14"
+                                               FontFamily="Yu Gothic UI"
+                                               Foreground="#FF6B9BD6"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,10,0"/>
+                                    <Button Grid.Column="1"
+                                            Content="×" 
                                             FontSize="16"
                                             FontWeight="Bold"
                                             Background="Transparent"
@@ -235,8 +270,9 @@
                                             BorderThickness="0"
                                             Cursor="Hand"
                                             Click="BtnRemoveFavorite_Click"
-                                            Tag="{Binding}"/>
-                                </StackPanel>
+                                            Tag="{Binding}"
+                                            Padding="5,0"/>
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -246,42 +282,46 @@
             <!-- 選択エリア -->
             <Border Style="{StaticResource WeatherCard}">
                 <StackPanel>
-                    <TextBlock Text="📍 都道府県" 
+                    <TextBlock Text="📍 都道府県（入力で検索）" 
                                FontSize="14" 
                                FontWeight="SemiBold" 
                                FontFamily="Yu Gothic UI"
                                Foreground="#FF6B9BD6"
                                Margin="0,0,0,8"/>
                     <ComboBox x:Name="CmbPref" 
-                              Style="{StaticResource RoundedComboBox}"
-                              SelectionChanged="CmbPref_SelectionChanged"
-                              Margin="0,0,0,12">
+          Style="{StaticResource SearchableComboBox}"
+          SelectionChanged="CmbPref_SelectionChanged"
+          TextSearch.TextPath="Name"
+          Margin="0,0,0,12"
+          IsTextSearchEnabled="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" 
-                                           FontSize="14"
-                                           FontFamily="Yu Gothic UI"
-                                           Foreground="#FF6B9BD6"/>
+                       FontSize="14"
+                       FontFamily="Yu Gothic UI"
+                       Foreground="#FF6B9BD6"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="🏘️ 市町村" 
-                               FontSize="14" 
-                               FontWeight="SemiBold" 
-                               FontFamily="Yu Gothic UI"
-                               Foreground="#FF6B9BD6"
-                               Margin="0,0,0,8"/>
+                    <TextBlock Text="🏘️ 市町村（入力で検索）" 
+           FontSize="14" 
+           FontWeight="SemiBold" 
+           FontFamily="Yu Gothic UI"
+           Foreground="#FF6B9BD6"
+           Margin="0,0,0,8"/>
                     <ComboBox x:Name="CmbCity" 
-                              Style="{StaticResource RoundedComboBox}"
-                              SelectionChanged="CmbCity_SelectionChanged"
-                              Margin="0,0,0,12">
+          Style="{StaticResource SearchableComboBox}"
+          SelectionChanged="CmbCity_SelectionChanged"
+          TextSearch.TextPath="Name"
+          Margin="0,0,0,12"
+          IsTextSearchEnabled="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" 
-                                           FontSize="14"
-                                           FontFamily="Yu Gothic UI"
-                                           Foreground="#FF6B9BD6"/>
+                       FontSize="14"
+                       FontFamily="Yu Gothic UI"
+                       Foreground="#FF6B9BD6"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -340,91 +380,152 @@
             </Border>
         </StackPanel>
 
-        <!-- 右側: 週間天気 -->
-        <Border Grid.Column="1" Style="{StaticResource WeatherCard}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock Text="📅 週間天気予報" 
-                               FontSize="20" 
-                               FontWeight="Bold" 
-                               FontFamily="Yu Gothic UI"
-                               Foreground="#FF7BA3D9"
-                               HorizontalAlignment="Center"
-                               Margin="0,0,0,20"/>
+        <!-- 右側: 時間ごと＆週間天気 -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- 今日の時間ごとの天気 -->
+                <Border Style="{StaticResource WeatherCard}" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="🕐 今日の時間ごとの天気" 
+                                   FontSize="20" 
+                                   FontWeight="Bold" 
+                                   FontFamily="Yu Gothic UI"
+                                   Foreground="#FF7BA3D9"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,15"/>
 
-                    <ItemsControl x:Name="WeeklyForecast">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="1"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Style="{StaticResource DayCard}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="100"/>
-                                        </Grid.ColumnDefinitions>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <ItemsControl x:Name="HourlyForecast">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource DayCard}" Margin="5" Width="100">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Time}" 
+                                                           FontSize="14"
+                                                           FontWeight="SemiBold"
+                                                           FontFamily="Yu Gothic UI"
+                                                           Foreground="#FF6B9BD6"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,0,0,5"/>
 
-                                        <TextBlock Grid.Column="0" 
-                                                   Text="{Binding Date}" 
-                                                   FontSize="16"
-                                                   FontWeight="SemiBold"
-                                                   FontFamily="Yu Gothic UI"
-                                                   Foreground="#FF6B9BD6"
-                                                   VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding WeatherEmoji}" 
+                                                           FontSize="28"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,0,0,5"/>
 
-                                        <TextBlock Grid.Column="1" 
-                                                   Text="{Binding WeatherEmoji}" 
-                                                   FontSize="32"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Temperature}" 
+                                                           FontSize="16"
+                                                           FontWeight="Bold"
+                                                           FontFamily="Yu Gothic UI"
+                                                           Foreground="#FFFF8BA7"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,0,0,3"/>
 
-                                        <TextBlock Grid.Column="2" 
-                                                   Text="{Binding Description}" 
-                                                   FontSize="14"
-                                                   FontFamily="Yu Gothic UI"
-                                                   Foreground="#FF666666"
-                                                   VerticalAlignment="Center"
-                                                   Margin="10,0"/>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <TextBlock Text="💧 " FontSize="12"/>
+                                                    <TextBlock Text="{Binding Precipitation}" 
+                                                               FontSize="12"
+                                                               Foreground="#FF6B9BD6"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
 
-                                        <StackPanel Grid.Column="3" 
-                                                    Orientation="Horizontal" 
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center">
-                                            <TextBlock Text="最高: " 
-                                                       FontSize="14"
-                                                       Foreground="#FFFF6B6B"/>
-                                            <TextBlock Text="{Binding MaxTemp}" 
+                <!-- 週間天気 -->
+                <Border Style="{StaticResource WeatherCard}">
+                    <StackPanel>
+                        <TextBlock Text="📅 週間天気予報" 
+                                   FontSize="20" 
+                                   FontWeight="Bold" 
+                                   FontFamily="Yu Gothic UI"
+                                   Foreground="#FF7BA3D9"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,20"/>
+
+                        <ItemsControl x:Name="WeeklyForecast">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="1"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource DayCard}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" 
+                                                       Text="{Binding Date}" 
                                                        FontSize="16"
-                                                       FontWeight="Bold"
-                                                       Foreground="#FFFF6B6B"/>
-                                        </StackPanel>
+                                                       FontWeight="SemiBold"
+                                                       FontFamily="Yu Gothic UI"
+                                                       Foreground="#FF6B9BD6"
+                                                       VerticalAlignment="Center"/>
 
-                                        <StackPanel Grid.Column="4" 
-                                                    Orientation="Horizontal" 
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center">
-                                            <TextBlock Text="最低: " 
+                                            <TextBlock Grid.Column="1" 
+                                                       Text="{Binding WeatherEmoji}" 
+                                                       FontSize="32"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="2" 
+                                                       Text="{Binding Description}" 
                                                        FontSize="14"
-                                                       Foreground="#FF6B9BD6"/>
-                                            <TextBlock Text="{Binding MinTemp}" 
-                                                       FontSize="16"
-                                                       FontWeight="Bold"
-                                                       Foreground="#FF6B9BD6"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
+                                                       FontFamily="Yu Gothic UI"
+                                                       Foreground="#FF666666"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10,0"/>
+
+                                            <StackPanel Grid.Column="3" 
+                                                        Orientation="Horizontal" 
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center">
+                                                <TextBlock Text="最高: " 
+                                                           FontSize="14"
+                                                           Foreground="#FFFF6B6B"/>
+                                                <TextBlock Text="{Binding MaxTemp}" 
+                                                           FontSize="16"
+                                                           FontWeight="Bold"
+                                                           Foreground="#FFFF6B6B"/>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="4" 
+                                                        Orientation="Horizontal" 
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center">
+                                                <TextBlock Text="最低: " 
+                                                           FontSize="14"
+                                                           Foreground="#FF6B9BD6"/>
+                                                <TextBlock Text="{Binding MinTemp}" 
+                                                           FontSize="16"
+                                                           FontWeight="Bold"
+                                                           Foreground="#FF6B9BD6"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
 
         <!-- ローディングオーバーレイ -->
         <Grid x:Name="LoadingOverlay" 
